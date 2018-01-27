@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Movie Theaters</title>
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body data-bind="event: {onload: loadInitialData()}">
+
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-white w3-collapse w3-top w3-medium w3-padding" style="z-index:3;width:300px;" id="mySidebar"><br>
+      <h3 class="w3-indigo w3-padding">Nearby Theaters</h3>
+      <div class="w3-bar-block">
+
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-btn w3-hide-large w3-display-topleft">X</a>
+
+        <div class="w3-card-4 w3-border w3-margin-bottom" data-bind="visible: errorMsg() !='' ">
+          <div class="w3-bar-item w3-deep-orange w3-small" data-bind="text: errorMsg"></div>
+        </div>
+
+        <!-- Search for Location -->
+        <div class="w3-card-4 w3-margin-bottom">
+          <div class="w3-bar w3-light-grey w3-border">
+            <input value="Times Sqaure, New York City" class="w3-bar-item" id="search-text" type="text" name="search-text" placeholder="Search for Location.." data-bind="text: searchLocation">
+            <a href="#" class="w3-bar-item w3-indigo" id="search-button">
+              <i class="fa fa-search" onclick="w3_close()" data-bind="click: retrieveTheatersNearby"></i>
+            </a>
+          </div>
+          <div class="w3-bar w3-border" data-bind="visible: location() != '' ">
+            <div href="#" class="w3-bar-item" id="pin-icon">
+              <i class="fa fa-map-pin" aria-hidden="true"></i>
+            </div>
+            <button class="w3-bar-item w3-white" id="location" data-bind="text: location"></button>
+          </div>
+        </div>
+
+        <!-- Filter Theater list -->
+        <div class="w3-card-4 w3-margin-bottom w3-border filter-list" data-bind="visible: theaterList().length > 0">
+          <div class="w3-bar w3-light-grey w3-border">
+            <input class="w3-bar-item" id="filter-string" type="text" placeholder="Filter Theaters.."  data-bind="textInput: filterTheater, event: {keyup: filterTheaterList}">
+            <div class="w3-bar-item w3-indigo" id="filter-symbol"><i class="fa fa-filter" aria-hidden="true"></i></div>
+          </div>
+          <table data-bind="foreach: theaterList" class="w3-table w3-border" id="t-list">
+            <tr>
+              <td class="w3-hover-indigo" data-bind="text: $data.name, visible: $data.visible, click: function(data, event) { $parent.populateTheaterData($data.marker, $data)}"></td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- Movie list provided by Foursquare -->
+        <div class="w3-card-4 w3-border" id="movies" data-bind="visible: theater().movies().length > 0">
+          <div class="w3-indigo w3-padding w3-center" id="theater-name">
+            <a target="_blank" data-bind="text: theater().name, attr: {href: theater().url}"></a>
+          </div>
+
+          <div onclick="htmlAccordions('movie-list')" class="w3-bar w3-border" id="movie-list-bar">
+            <button type="button"  class="w3-bar-item w3-white w3-center" id="movie-list-label">Movie List</button>
+            <a href="#" class="w3-bar-item w3-indigo" id="extend-button">
+              <i class="fa fa-chevron-circle-down" aria-hidden="true"></i>
+            </a>
+          </div>
+
+          <div id="movie-list" class="w3-container w3-hide w3-border">
+            <div data-bind="with: theater">
+              <div data-bind="foreach: movies">
+                <div id="movie" class="w3-hover-indigo">
+                  <span data-bind="text: $data[0]"></span>
+                  <a target="_blank" data-bind="visible: $data[1], attr: {href: $data[1]}">Book Online</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="w3-border  w3-center">
+            <em>Powered by <i class="fa fa-foursquare w3-margin-top" aria-hidden="true"></i> Foursquare</em>
+          </div>
+        </div>
+
+      </div>
+    </nav>
+
+    <!-- Top menu on small screens -->
+    <header class="w3-container w3-top w3-hide-large w3-xlarge w3-padding w3-indigo">
+      <a href="javascript:void(0)" class="w3-btn w3-margin-right" onclick="w3_open()">☰</a>
+      <span>Nearby Theaters</span>
+    </header>
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+    <!-- Google Map -->
+    <div class="w3-main">
+      <div id="map" onclick="w3_close()"></div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+    <script src="https://use.fontawesome.com/3e24e1b42a.js"></script>
+    <script src="js/script.js"></script>
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLvmvl0b-x3wCI0xyiYRDV4FXYlCmuRaM&libraries=places&callback=initMap">
+    </script>
+
+  </body>
+</html>
