@@ -318,11 +318,6 @@ function stopBounceMarker() {
   this.setAnimation(google.maps.Animation.null);
 }
 
-// Open infoWindow on marker click event
-function openInfoWindow() {
-  alert("hello");
-}
-
 // Create a google marker
 function createMarker(imageURL, position) {
   let icon = new google.maps.MarkerImage(
