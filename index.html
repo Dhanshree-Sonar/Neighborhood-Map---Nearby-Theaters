@@ -44,7 +44,7 @@
           </div>
           <table data-bind="foreach: theaterList" class="w3-table w3-border" id="t-list">
             <tr>
-              <td class="w3-hover-indigo" data-bind="text: $data.name, visible: $data.visible, click: function(data, event) { $parent.populateTheaterData($data.marker, $data)}"></td>
+              <td class="w3-hover-indigo" value="Welcome" id="table-data" data-bind="text: $data.name, visible: $data.visible, click: $parent.populateTheaterData"></td>
             </tr>
           </table>
         </div>
