@@ -14,10 +14,10 @@
       <h3 class="w3-indigo w3-padding">Nearby Theaters</h3>
       <div class="w3-bar-block">
 
-        <a href="javascript:void(0)" onclick="w3_close()" class="w3-btn w3-hide-large w3-display-topleft">X</a>
+        <a href="#" onclick="w3_close()" class="w3-btn w3-hide-large w3-display-topleft">X</a>
 
         <div class="w3-card-4 w3-border w3-margin-bottom" data-bind="visible: errorMsg() !='' ">
-          <div class="w3-bar-item w3-deep-orange w3-small" data-bind="text: errorMsg"></div>
+          <div class="w3-bar-item w3-deep-orange w3-animate-zoom w3-small" data-bind="text: errorMsg"></div>
         </div>
 
         <!-- Search for Location -->
@@ -29,7 +29,7 @@
             </a>
           </div>
           <div class="w3-bar w3-border" data-bind="visible: location() != '' ">
-            <div href="#" class="w3-bar-item" id="pin-icon">
+            <div class="w3-bar-item" id="pin-icon">
               <i class="fa fa-map-pin" aria-hidden="true"></i>
             </div>
             <button class="w3-bar-item w3-white" id="location" data-bind="text: location"></button>
@@ -44,7 +44,7 @@
           </div>
           <table data-bind="foreach: theaterList" class="w3-table w3-border" id="t-list">
             <tr>
-              <td class="w3-hover-indigo" value="Welcome" id="table-data" data-bind="text: $data.name, visible: $data.visible, click: $parent.populateTheaterData"></td>
+              <td class="w3-hover-indigo" data-bind="text: $data.name, visible: $data.visible, click: $parent.populateTheaterData"></td>
             </tr>
           </table>
         </div>
@@ -55,7 +55,7 @@
             <a target="_blank" data-bind="text: theater().name, attr: {href: theater().url}"></a>
           </div>
 
-          <div onclick="htmlAccordions('movie-list')" class="w3-bar w3-border" id="movie-list-bar">
+          <div onclick="htmlAccordions('movie-list')" class="w3-bar w3-border movie-list-bar">
             <button type="button"  class="w3-bar-item w3-white w3-center" id="movie-list-label">Movie List</button>
             <a href="#" class="w3-bar-item w3-indigo" id="extend-button">
               <i class="fa fa-chevron-circle-down" aria-hidden="true"></i>
@@ -65,7 +65,7 @@
           <div id="movie-list" class="w3-container w3-hide w3-border">
             <div data-bind="with: theater">
               <div data-bind="foreach: movies">
-                <div id="movie" class="w3-hover-indigo">
+                <div class="w3-hover-indigo movie">
                   <span data-bind="text: $data[0]"></span>
                   <a target="_blank" data-bind="visible: $data[1], attr: {href: $data[1]}">Book Online</a>
                 </div>
@@ -83,7 +83,7 @@
 
     <!-- Top menu on small screens -->
     <header class="w3-container w3-top w3-hide-large w3-xlarge w3-padding w3-indigo">
-      <a href="javascript:void(0)" class="w3-btn w3-margin-right" onclick="w3_open()">☰</a>
+      <a href="#" class="w3-btn w3-margin-right" onclick="w3_open()">☰</a>
       <span>Nearby Theaters</span>
     </header>
 
@@ -92,15 +92,15 @@
 
     <!-- Google Map -->
     <div class="w3-main">
-      <div id="map" onclick="w3_close()"></div>
+      <div id="map" class="map-canvas" onclick="w3_close()"></div>
+      <div class="w3-center w3-text-deep-orange w3-animate-zoom w3-large w3-padding-64 map-error"></div>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
     <script src="https://use.fontawesome.com/3e24e1b42a.js"></script>
     <script src="js/script.js"></script>
-    <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLvmvl0b-x3wCI0xyiYRDV4FXYlCmuRaM&libraries=places&callback=initMap">
+    <script async defer src="https://maps.googleWILLNOTWORkapis.com/maps/api/js?key=AIzaSyCLvmvl0b-x3wCI0xyiYRDV4FXYlCmuRaM&libraries=places&callback=initMap" onerror="googleError()">
     </script>
 
   </body>

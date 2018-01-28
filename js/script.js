@@ -22,6 +22,12 @@ function initMap() {
   ko.applyBindings(new ViewModel());
 }
 
+// Alert the user if google maps isn't working
+function googleError() {
+  document.getElementsByClassName('map-error')[0].innerHTML = "<h2>Google Maps is not loading. Please try refreshing the page later.</h2>";
+}
+
+
 // Model for theater data
 let Theater = function () {
   this.visible = ko.observable(true);
@@ -199,15 +205,15 @@ let ViewModel = function () {
           self.theater().name(self.theaterList()[i].name());
         }
         if (self.theaterList()[i].address()) {
-          content += '<div id="theater-addr"><em>' + self.theaterList()[i].address() + '</em></div>';
+          content += '<div class="theater-addr"><em>' + self.theaterList()[i].address() + '</em></div>';
           self.theater().address(self.theaterList()[i].address());
         }
         if (self.theaterList()[i].openNow() !== null) {
           if (self.theaterList()[i].openNow()) {
-            content += '<div id="theater-open">' + 'Open Now' + '</div>';
+            content += '<div class="theater-open">' + 'Open Now' + '</div>';
             self.theater().openNow(true);
           } else {
-            content += '<div id="theater-close">' + 'Closed' + '</div>';
+            content += '<div class="theater-close">' + 'Closed' + '</div>';
             self.theater().openNow(false);
           }
         }
@@ -347,6 +353,8 @@ function w3_open() {
     document.getElementById("mySidebar").style.display = "block";
     document.getElementById("myOverlay").style.display = "block";
 }
+
+
 
 // Function to close sidebar
 function w3_close() {

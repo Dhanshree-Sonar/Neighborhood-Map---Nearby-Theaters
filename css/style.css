@@ -2,10 +2,44 @@
   font-family: "Helvetica", Verdana, Arial, sans-serif;
 }
 
-#map {
+.map-canvas {
   width: 100%;
   height: 100%;
   position: absolute;
+}
+
+.movie-list-bar {
+  width: 100%;
+}
+
+.movie:hover {
+  transform: scale(1.1);
+}
+
+.theater-name {
+  color: purple;
+}
+
+.theater-open {
+  color: green;
+}
+
+.theater-close {
+  color: red;
+}
+
+.fa-foursquare {
+  color: #f94877;
+}
+
+.fa-google {
+  color: blue;
+}
+
+.map-error {
+  position: relative;
+  width: 50%;
+  left: 30%;
 }
 
 #search-button,
@@ -22,31 +56,6 @@
   display: inline;
 }
 
-#movie-list-bar {
-  width: 100%;
-}
-
-#movie:hover {
-  transform: scale(1.1);
-}
-
-#theater-name {
-  color: purple;
-}
-
-#theater-open {
-  color: green;
-}
-
-#theater-close {
-  color: red;
-}
-
-#info-window {
-  width: 100%;
-  overflow: scroll;
-}
-
 #pin-icon {
   width: 10%;
   display: inline;
@@ -58,12 +67,4 @@
   width: 89%;
   display: inline;
   padding: 0%;
-}
-
-.fa-foursquare {
-  color: #f94877;
-}
-
-.fa-google {
-  color: blue;
 }
