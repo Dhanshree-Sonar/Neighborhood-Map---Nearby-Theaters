@@ -9,9 +9,10 @@ This site is helpful resource to obtain list of theaters nearby any location. Us
 
 ## How to run
 
-1. Clone the repository to your local directory or download it.
-    To Clone: `$ git clone https://github.com/Dhanshree-Sonar/Neighborhood-Map---Nearby-Theaters.git`
-2. Open index.html using your choice of browser
+1. Clone the repository to your local directory or download it
+    - Clone command: `$ git clone https://github.com/Dhanshree-Sonar/Neighborhood-Map---Nearby-Theaters.git`
+    - Open index.html using your choice of browser
+2. You can visit Github hosted version [Click here](https://dhanshree-sonar.github.io/Neighborhood-Map---Nearby-Theaters/)
 
 ## Website functionality
 
