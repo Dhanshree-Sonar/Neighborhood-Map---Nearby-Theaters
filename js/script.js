@@ -180,7 +180,7 @@ let ViewModel = function () {
     for (var i = 0; i < self.theaterList().length; i++) {
       if (self.theaterList()[i].lat() == marker.position.lat() && self.theaterList()[i].lng() == marker.position.lng()) {
 
-        marker.setAnimation(google.maps.Animation.BOUNCE);
+        marker.setAnimation(google.maps.Animation.DROP);
         self.errorMsg('');
         self.clearTheaterInfo();
         let content = '<div>';
@@ -226,62 +226,14 @@ let ViewModel = function () {
           CATEGORY_ID + '&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET + '&ll=' +
           self.theater().lat() + ',' + self.theater().lng(),
           dataType: 'json',
-          success: function (response) {
-            if (response.response.venues[0].id) {
-              let venueId = response.response.venues[0].id;
-
-              // Retrieve URL of Movie Theater website
-              if (response.response.venues[0].url) {
-                content += '<div><a target="_blank" href=' + response.response.venues[0].url + '>' +
-                response.response.venues[0].url + '</a></div>';
-                self.theater().url(response.response.venues[0].url);
-              }
-              // Foursquare API call to get Events at Venue
-              $.ajax({
-                url: 'https://api.foursquare.com/v2/venues/' + venueId + '/events?client_id=' +
-                  CLIENT_ID + '&client_secret=' + CLIENT_SECRET + '&v=' + VERSION,
-                dataType: 'json',
-                success: function (response) {
-                  let items = response.response.events.items;
-                  if (items.length > 1) {
-                    for (let i = 1; i < items.length; i++) {
-                      if (items[i].name) {
-                        let movie = [];
-                        movie.push(items[i].name);
-                        if (items[i].url) {
-                          movie.push(items[i].url);
-                        }
-                        self.theater().movies.push(movie);
-                      }
-                    }
-                  } else {
-                    self.errorMsg('No Foursquare Movie data available for this theater.');
-                  }
-                },
-                error: function (e) {
-                  let obj = JSON.parse(e.responseText);
-                  self.errorMsg('Foursquare data is unavailable. Due to: ' + obj.meta.errorType);
-                }
-              });
-            } else {
-              self.errorMsg('Foursquare venue ID for this theater is unavailable!');
-            }
-          },
-          error: function (e, status, error) {
-            let obj = JSON.parse(e.responseText);
-            self.errorMsg('Foursquare data is unavailable. Due to: ' + obj.meta.errorType);
-          }
+          success: self.getVenueID,
+          error: self.foursquareErrorHandling
         });
 
         content += '</div>';
 
         infoWindow.setContent(content);
         infoWindow.open(map, marker);
-
-        // Stop marker BOUNCE animation
-        window.setTimeout(function () {
-          marker.setAnimation(google.maps.Animation.null);
-        }, 1400);
       }
     }
 
@@ -290,7 +242,7 @@ let ViewModel = function () {
   // Close infowindow
   self.closeInfoWindow = function () {
     this.setMarker = null;
-  }
+  };
 
   // Reset theater info
   this.clearTheaterInfo = function () {
@@ -305,7 +257,56 @@ let ViewModel = function () {
     self.theater().url('');
   };
 
+  // Get venue ID using foursquare API
+  self.getVenueID = function (response) {
+    if (response.response.venues[0].id) {
+      let venueId = response.response.venues[0].id;
+
+      // Retrieve URL of Movie Theater website
+      if (response.response.venues[0].url) {
+        self.theater().url(response.response.venues[0].url);
+      }
+      // Foursquare API call to get Events at Venue
+      $.ajax({
+        url: 'https://api.foursquare.com/v2/venues/' + venueId + '/events?client_id=' +
+          CLIENT_ID + '&client_secret=' + CLIENT_SECRET + '&v=' + VERSION,
+        dataType: 'json',
+        success: function (response) {
+          let items = response.response.events.items;
+          if (items.length > 1) {
+            for (let i = 1; i < items.length; i++) {
+              if (items[i].name) {
+                let movie = [];
+                movie.push(items[i].name);
+                if (items[i].url) {
+                  movie.push(items[i].url);
+                }
+                self.theater().movies.push(movie);
+              }
+            }
+          } else {
+            self.errorMsg('No Foursquare Movie data available for this theater.');
+          }
+        },
+        error: function (e) {
+          let obj = JSON.parse(e.responseText);
+          self.errorMsg('Foursquare data is unavailable. Due to: ' + obj.meta.errorType);
+        }
+      });
+    } else {
+      self.errorMsg('Foursquare venue ID for this theater is unavailable!');
+    }
+  };
+
+  // Displaying Foursquare API error message
+  self.foursquareErrorHandling = function (e) {
+    let obj = JSON.parse(e.responseText);
+    self.errorMsg('Foursquare data is unavailable. Due to: ' + obj.meta.errorType);
+  };
+
 };
+
+
 
 // Bound the map marker on mouseover event
 function startBounceMarker() {
