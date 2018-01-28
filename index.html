@@ -10,11 +10,11 @@
   <body data-bind="event: {onload: loadInitialData()}">
 
     <!-- Sidebar/menu -->
-    <nav class="w3-sidebar w3-white w3-collapse w3-top w3-medium w3-padding" style="z-index:3;width:300px;" id="mySidebar"><br>
+    <nav class="w3-sidebar w3-white w3-collapse w3-top w3-medium w3-padding" style="z-index:3;width:300px;" id="sidebar"><br>
       <h3 class="w3-indigo w3-padding">Nearby Theaters</h3>
       <div class="w3-bar-block">
 
-        <a href="#" onclick="w3_close()" class="w3-btn w3-hide-large w3-display-topleft">X</a>
+        <a href="#" data-bind="click: sidebarClose" class="w3-btn w3-hide-large w3-display-topleft">X</a>
 
         <div class="w3-card-4 w3-border w3-margin-bottom" data-bind="visible: errorMsg() !='' ">
           <div class="w3-bar-item w3-deep-orange w3-animate-zoom w3-small" data-bind="text: errorMsg"></div>
@@ -25,7 +25,7 @@
           <div class="w3-bar w3-light-grey w3-border">
             <input value="Times Sqaure, New York City" class="w3-bar-item" id="search-text" type="text" name="search-text" placeholder="Search for Location.." data-bind="text: searchLocation">
             <a href="#" class="w3-bar-item w3-indigo" id="search-button">
-              <i class="fa fa-search" onclick="w3_close()" data-bind="click: retrieveTheatersNearby"></i>
+              <i class="fa fa-search" data-bind="click: retrieveTheatersNearby"></i>
             </a>
           </div>
           <div class="w3-bar w3-border" data-bind="visible: location() != '' ">
@@ -55,7 +55,7 @@
             <a target="_blank" data-bind="text: theater().name, attr: {href: theater().url}"></a>
           </div>
 
-          <div onclick="htmlAccordions('movie-list')" class="w3-bar w3-border movie-list-bar">
+          <div class="w3-bar w3-border movie-list-bar" data-bind="click: showHideMovieList">
             <button type="button"  class="w3-bar-item w3-white w3-center" id="movie-list-label">Movie List</button>
             <a href="#" class="w3-bar-item w3-indigo" id="extend-button">
               <i class="fa fa-chevron-circle-down" aria-hidden="true"></i>
@@ -83,16 +83,16 @@
 
     <!-- Top menu on small screens -->
     <header class="w3-container w3-top w3-hide-large w3-xlarge w3-padding w3-indigo">
-      <a href="#" class="w3-btn w3-margin-right" onclick="w3_open()">☰</a>
+      <a href="#" class="w3-btn w3-margin-right" data-bind="click: sidebarOpen">☰</a>
       <span>Nearby Theaters</span>
     </header>
 
     <!-- Overlay effect when opening sidebar on small screens -->
-    <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+    <div class="w3-overlay w3-hide-large" data-bind="click: sidebarClose" style="cursor:pointer" title="close side menu" id="overlay"></div>
 
     <!-- Google Map -->
     <div class="w3-main">
-      <div id="map" class="map-canvas" onclick="w3_close()"></div>
+      <div id="map" class="map-canvas" data-bind="click: sidebarClose"></div>
       <div class="w3-center w3-text-deep-orange w3-animate-zoom w3-large w3-padding-64 map-error"></div>
     </div>
 
@@ -100,7 +100,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
     <script src="https://use.fontawesome.com/3e24e1b42a.js"></script>
     <script src="js/script.js"></script>
-    <script async defer src="https://maps.googleWILLNOTWORkapis.com/maps/api/js?key=AIzaSyCLvmvl0b-x3wCI0xyiYRDV4FXYlCmuRaM&libraries=places&callback=initMap" onerror="googleError()">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLvmvl0b-x3wCI0xyiYRDV4FXYlCmuRaM&libraries=places&callback=initMap" onerror="googleError()">
     </script>
 
   </body>

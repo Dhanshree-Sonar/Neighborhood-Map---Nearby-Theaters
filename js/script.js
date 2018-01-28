@@ -65,6 +65,7 @@ let ViewModel = function () {
   // Retrieve theaters nearby based on search-text
   this.retrieveTheatersNearby = function () {
     this.errorMsg('');
+    self.sidebarClose();
 
     // Get theaters near the location using google apis (geocode and places)
     this.searchLocation(document.getElementById('search-text').value);
@@ -310,9 +311,29 @@ let ViewModel = function () {
     self.errorMsg('Foursquare data is unavailable. Due to: ' + obj.meta.errorType);
   };
 
+  // Function to open sidebar
+  self.sidebarOpen = function () {
+    document.getElementById("sidebar").style.display = "block";
+    document.getElementById("overlay").style.display = "block";
+  };
+
+  // Function to close sidebar
+  self.sidebarClose = function () {
+    document.getElementById("sidebar").style.display = "none";
+    document.getElementById("overlay").style.display = "none";
+  };
+
+  // Funtion to show/hide movie list
+  self.showHideMovieList = function () {
+    let x = document.getElementById('movie-list');
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+  };
+
 };
-
-
 
 // Bound the map marker on mouseover event
 function startBounceMarker() {
@@ -346,28 +367,4 @@ function createMarker(imageURL, position) {
   });
 
   return marker;
-}
-
-// Function to open sidebar
-function w3_open() {
-    document.getElementById("mySidebar").style.display = "block";
-    document.getElementById("myOverlay").style.display = "block";
-}
-
-
-
-// Function to close sidebar
-function w3_close() {
-    document.getElementById("mySidebar").style.display = "none";
-    document.getElementById("myOverlay").style.display = "none";
-}
-
-// Function to guve Accordion effect to list
-function htmlAccordions(id) {
-    let x = document.getElementById(id);
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-    } else {
-        x.className = x.className.replace(" w3-show", "");
-    }
 }
