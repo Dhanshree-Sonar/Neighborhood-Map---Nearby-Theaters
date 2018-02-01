@@ -58,7 +58,7 @@ let ViewModel = function () {
 
   // Initial location setup
   this.loadInitialData = function () {
-    this.searchLocation('Times Sqaure, New York City');
+    this.searchLocation('Times Square, New York City');
     this.retrieveTheatersNearby();
   };
 
