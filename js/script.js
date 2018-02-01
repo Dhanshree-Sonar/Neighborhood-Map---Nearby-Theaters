@@ -325,7 +325,7 @@ let ViewModel = function () {
 
   // Displaying Foursquare API error message
   self.foursquareErrorHandling = function (e) {
-    if (e.responseText == 'undefined' || e.responseText == '') {
+    if (e.responseText === 'undefined' || e.responseText === '') {
       self.errorMsg('Foursquare data is unavailable. No Response from Foursqaure.');
     } else {
       let obj = JSON.parse(e.responseText);
