@@ -309,8 +309,38 @@ let ViewModel = function () {
 
   // Displaying Foursquare API error message
   self.foursquareErrorHandling = function (e) {
-    let obj = JSON.parse(e.responseText);
-    self.errorMsg('Foursquare data is unavailable. Due to: ' + obj.meta.errorType);
+    if (e.responseText == 'undefined' || e.responseText == '') {
+      self.errorMsg('Foursquare data is unavailable. No Response from Foursqaure.');
+    } else {
+      let obj = JSON.parse(e.responseText);
+      var error = '';
+
+      switch (obj.meta.code) {
+        case 400:
+          error = 'Foursquare request failed! Due to: ' + obj.meta.errorType.toUpperCase();
+          error += '. May be you are unauthorized to make the request due to expired/missing credentials.';
+          break;
+        case 429:
+          error = 'Foursquare request failed! Due to: ' + obj.meta.errorType.toUpperCase();
+          error += '. This app has exceeded the daily call quota set by Foursquare.';
+          break;
+        case 403:
+          error = 'Foursquare request failed! Due to: ' + obj.meta.errorType.toUpperCase();
+          error += '. May be you are attempting to access unauthorized information.';
+          break;
+        case 404:
+          error = 'Foursquare request failed! Due to: ' + obj.meta.errorType.toUpperCase();
+          error += '. Requesting URL not found. It has been removed or does not exist.';
+          break;
+        case 500:
+          error = 'Foursquare request failed! Due to: ' + obj.meta.errorType.toUpperCase();
+          error += '. Foursquare server has timed out. Please try later.';
+          break;
+        default:
+          error = 'Foursquare request failed! Due to: ' + obj.meta.errorType.toUpperCase();
+      }
+      self.errorMsg(error);
+    }
   };
 
   // Function to open sidebar
