@@ -42,6 +42,15 @@
   left: 30%;
 }
 
+.fs-link {
+  text-decoration: none;
+  color: #f94877;
+}
+
+.fs-link:hover {
+  font-style: italic;
+}
+
 #search-button,
 #filter-symbol,
 #extend-button {

@@ -42,6 +42,7 @@ const Theater = function () {
   this.url = ko.observable();
   this.movies = ko.observableArray();
   this.marker = '';
+  this.foursquareUrl = ko.observable();
 };
 
 let ViewModel = function () {
@@ -264,6 +265,7 @@ let ViewModel = function () {
     self.theater().lng('');
     self.theater().googleRating('');
     self.theater().url('');
+    self.theater().foursquareUrl('');
   };
 
   // Get venue ID using foursquare API
@@ -275,6 +277,20 @@ let ViewModel = function () {
       if (response.response.venues[0].url) {
         self.theater().url(response.response.venues[0].url);
       }
+
+      // Retrieve Foursquare url for venue
+      $.ajax({
+        url: 'https://api.foursquare.com/v2/venues/' + venueId + '?client_id=' +
+          CLIENT_ID + '&client_secret=' + CLIENT_SECRET + '&v=' + VERSION,
+        dataType: 'json',
+        success: function (response) {
+          if (response.response.venue.canonicalUrl) {
+            self.theater().foursquareUrl(response.response.venue.canonicalUrl);
+          }
+        },
+        error: self.foursquareErrorHandling
+      });
+
       // Foursquare API call to get Events at Venue
       $.ajax({
         url: 'https://api.foursquare.com/v2/venues/' + venueId + '/events?client_id=' +
