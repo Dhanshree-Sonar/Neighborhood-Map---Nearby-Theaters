@@ -24,12 +24,12 @@ This site is helpful resource to obtain list of theaters nearby any location. Us
 6. When user clicks the marker or theater from the list, It opens:
     - Google InfoWindow on Map: It has data such as Theater Name, Address, Open or Closed Status and Ratings retrieved using Google API.
     - Theater name on sidebar: You can click the name to open theater's website.
-    - Movie List on sidebar: This list has movie names and `FANDANGO` links for online booking. The data is retrieved using Foursquare API.
+    - Movie List on sidebar: This list has movie names and `FANDANGO` links for online booking. The data is retrieved using Foursquare API. Provided link to visit foursquare page for corresponding theater.
 7. If user encounters any error, it will be shown at the top on sidebar.
 
 ## Built with
 
-1. HTML 
+1. HTML
 2. JavaScript
 3. CSS
 4. [Knockout JS](http://knockoutjs.com/documentation/introduction.html)
