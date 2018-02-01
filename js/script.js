@@ -1,5 +1,3 @@
-'use strict';
-
 let map, infoWindow;
 const CLIENT_ID = 'PPQL3RL2BOIYIHH01BVFM24CPEYEKY5EC0PYJ3A2YBI3AVNG';
 const CLIENT_SECRET = 'ZE310M1TKIDJ4OADJEP0BCPOXOGTZOCESI4WFY2JHNAN5FYX';
@@ -10,6 +8,7 @@ let bounds;
 
 // A callback function for google map API
 function initMap() {
+  'use strict';
   map = new google.maps.Map(document.getElementById('map'),{
     center: {lat: 40.7413549,lng: -73.99802439999996},
     zoom: 13
@@ -46,7 +45,7 @@ const Theater = function () {
 };
 
 let ViewModel = function () {
-
+  'use strict';
   let self = this;
 
   this.searchLocation = ko.observable('');
