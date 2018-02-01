@@ -31,7 +31,7 @@ function googleError() {
 
 
 // Model for theater data
-let Theater = function () {
+const Theater = function () {
   this.visible = ko.observable(true);
   this.name = ko.observable('');
   this.address = ko.observable();
