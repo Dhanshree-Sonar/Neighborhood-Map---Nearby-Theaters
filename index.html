@@ -24,9 +24,9 @@
         <div class="w3-card-4 w3-margin-bottom">
           <div class="w3-bar w3-light-grey w3-border">
             <input value="Times Square, New York City" class="w3-bar-item" id="search-text" type="text" name="search-text" placeholder="Search for Location.." data-bind="text: searchLocation">
-            <a href="#" class="w3-bar-item w3-indigo" id="search-button">
-              <i class="fa fa-search" data-bind="click: retrieveTheatersNearby"></i>
-            </a>
+            <button class="w3-bar-item w3-indigo search-btn" id="search-button" data-bind="click: retrieveTheatersNearby">
+              <i class="fa fa-search"></i>
+            </button>
           </div>
           <div class="w3-bar w3-border" data-bind="visible: location() != '' ">
             <div class="w3-bar-item" id="pin-icon">
