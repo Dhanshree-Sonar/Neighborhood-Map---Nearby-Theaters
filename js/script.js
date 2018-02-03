@@ -33,11 +33,11 @@ function googleError() {
 const Theater = function () {
   this.visible = ko.observable(true);
   this.name = ko.observable('');
-  this.address = ko.observable();
-  this.openNow = ko.observable();
-  this.lat = ko.observable();
-  this.lng = ko.observable();
-  this.googleRating = ko.observable();
+  this.address = '';
+  this.openNow = '';
+  this.lat = '';
+  this.lng = '';
+  this.googleRating = '';
   this.url = ko.observable();
   this.movies = ko.observableArray();
   this.marker = '';
@@ -108,39 +108,41 @@ let ViewModel = function () {
                   let place = results[i];
 
                   //Create new theater for every retrieved theater
-                  self.theaterList.push(new Theater());
-                  self.theaterList()[i].lat(place.geometry.location.lat());
-                  self.theaterList()[i].lng(place.geometry.location.lng());
+                  let theaterToAdd = new Theater();
+                  theaterToAdd.lat = place.geometry.location.lat();
+                  theaterToAdd.lng = place.geometry.location.lng();
                   if (place.name) {
-                    self.theaterList()[i].name(place.name);
+                    theaterToAdd.name(place.name);
                   }
                   if (place.vicinity) {
-                    self.theaterList()[i].address(place.vicinity);
+                    theaterToAdd.address = place.vicinity;
                   }
                   if (place.opening_hours) {
                     if (place.opening_hours.open_now) {
-                      self.theaterList()[i].openNow(true);
+                      theaterToAdd.openNow = true;
                     } else {
-                      self.theaterList()[i].openNow(false);
+                      theaterToAdd.openNow = false;
                     }
                   } else {
-                    self.theaterList()[i].openNow(null);
+                    theaterToAdd.openNow = null;
                   }
                   if (place.rating) {
-                    self.theaterList()[i].googleRating(place.rating);
+                    theaterToAdd.googleRating = place.rating;
                   }
 
-                  self.theaterList()[i].marker = createMarker('img/movie-icon.png', place.geometry.location);
-                  bounds.extend(self.theaterList()[i].marker.position);
+                  theaterToAdd.marker = createMarker('img/movie-icon.png', place.geometry.location);
+                  bounds.extend(theaterToAdd.marker.position);
 
                   // Add click listener on marker
-                  self.theaterList()[i].marker.addListener('click', self.populateTheaterData);
+                  theaterToAdd.marker.addListener('click', self.populateTheaterData);
 
                   // Add mouseover listener on marker
-                  self.theaterList()[i].marker.addListener('mouseover', startBounceMarker);
+                  theaterToAdd.marker.addListener('mouseover', startBounceMarker);
 
                   // Add mouseout listener on marker
-                  self.theaterList()[i].marker.addListener('mouseout', stopBounceMarker);
+                  theaterToAdd.marker.addListener('mouseout', stopBounceMarker);
+
+                  self.theaterList.push(theaterToAdd);
                 }
                 map.fitBounds(bounds);
               } else {
@@ -187,7 +189,7 @@ let ViewModel = function () {
     }
 
     for (var i = 0; i < self.theaterList().length; i++) {
-      if (self.theaterList()[i].lat() == marker.position.lat() && self.theaterList()[i].lng() == marker.position.lng()) {
+      if (self.theaterList()[i].lat == marker.position.lat() && self.theaterList()[i].lng == marker.position.lng()) {
 
         marker.setAnimation(google.maps.Animation.DROP);
         self.errorMsg('');
@@ -207,33 +209,33 @@ let ViewModel = function () {
           content += '<div id="theater-name">' + self.theaterList()[i].name() + '</div>';
           self.theater().name(self.theaterList()[i].name());
         }
-        if (self.theaterList()[i].address()) {
-          content += '<div class="theater-addr"><em>' + self.theaterList()[i].address() + '</em></div>';
-          self.theater().address(self.theaterList()[i].address());
+        if (self.theaterList()[i].address) {
+          content += '<div class="theater-addr"><em>' + self.theaterList()[i].address + '</em></div>';
+          self.theater().address = self.theaterList()[i].address;
         }
-        if (self.theaterList()[i].openNow() !== null) {
-          if (self.theaterList()[i].openNow()) {
+        if (self.theaterList()[i].openNow !== null) {
+          if (self.theaterList()[i].openNow) {
             content += '<div class="theater-open">' + 'Open Now' + '</div>';
-            self.theater().openNow(true);
+            self.theater().openNow = true;
           } else {
             content += '<div class="theater-close">' + 'Closed' + '</div>';
-            self.theater().openNow(false);
+            self.theater().openNow = false;
           }
         }
-        if (self.theaterList()[i].googleRating()) {
+        if (self.theaterList()[i].googleRating) {
           content += '<div>' + '<i class="fa fa-google" aria-hidden="true"></i>';
-          content += ' Rating: ' + self.theaterList()[i].googleRating() + '</div>';
-          self.theater().googleRating(self.theaterList()[i].googleRating());
+          content += ' Rating: ' + self.theaterList()[i].googleRating + '</div>';
+          self.theater().googleRating = self.theaterList()[i].googleRating;
         }
 
-        self.theater().lat(self.theaterList()[i].lat());
-        self.theater().lng(self.theaterList()[i].lng());
+        self.theater().lat = self.theaterList()[i].lat;
+        self.theater().lng = self.theaterList()[i].lng;
 
         // Foursquare API call to get Venue ID
         $.ajax({
           url: 'https://api.foursquare.com/v2/venues/search?v=' + VERSION +'&redius=10&categoryId=' +
           CATEGORY_ID + '&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET + '&ll=' +
-          self.theater().lat() + ',' + self.theater().lng(),
+          self.theater().lat + ',' + self.theater().lng,
           dataType: 'json',
           success: self.getVenueID,
           error: self.foursquareErrorHandling
@@ -258,11 +260,11 @@ let ViewModel = function () {
     self.theater().visible(false);
     self.theater().movies.removeAll();
     self.theater().name('');
-    self.theater().address('');
-    self.theater().openNow('');
-    self.theater().lat('');
-    self.theater().lng('');
-    self.theater().googleRating('');
+    self.theater().address = '';
+    self.theater().openNow = '';
+    self.theater().lat = '';
+    self.theater().lng = '';
+    self.theater().googleRating = '';
     self.theater().url('');
     self.theater().foursquareUrl('');
   };
