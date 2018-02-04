@@ -48,29 +48,29 @@ let ViewModel = function () {
   'use strict';
   let self = this;
 
-  this.searchLocation = ko.observable('');
-  this.filterTheater = ko.observable();
-  this.location = ko.observable('');
-  this.theater = ko.observable(new Theater());
-  this.theaterList = ko.observableArray([]);
-  this.errorMsg = ko.observable('');
+  self.searchLocation = ko.observable('');
+  self.filterTheater = ko.observable();
+  self.location = ko.observable('');
+  self.theater = ko.observable(new Theater());
+  self.theaterList = ko.observableArray([]);
+  self.errorMsg = ko.observable('');
 
   // Autocomplete for user's search query
   new google.maps.places.Autocomplete(document.getElementById('search-text'));
 
   // Initial location setup
-  this.loadInitialData = function () {
-    this.searchLocation('Times Square, New York City');
-    this.retrieveTheatersNearby();
+  self.loadInitialData = function () {
+    self.searchLocation('Times Square, New York City');
+    self.retrieveTheatersNearby();
   };
 
   // Retrieve theaters nearby based on search-text
-  this.retrieveTheatersNearby = function () {
-    this.errorMsg('');
+  self.retrieveTheatersNearby = function () {
+    self.errorMsg('');
     self.sidebarClose();
 
     // Get theaters near the location using google apis (geocode and places)
-    this.searchLocation(document.getElementById('search-text').value);
+    self.searchLocation(document.getElementById('search-text').value);
     if (self.searchLocation() !== '') {
       // Initialize the geocoder.
       let geocoder = new google.maps.Geocoder();
@@ -163,10 +163,10 @@ let ViewModel = function () {
   };
 
   // Filter list whenever user enters a text
-  this.filterTheaterList = function () {
+  self.filterTheaterList = function () {
     infoWindow.close();
     let string = self.filterTheater().toUpperCase();
-    this.theaterList().forEach(function (theater) {
+    self.theaterList().forEach(function (theater) {
       if (theater.name().toUpperCase().indexOf(string) > -1) {
         theater.visible(true);
         theater.marker.setMap(map);
@@ -256,7 +256,7 @@ let ViewModel = function () {
   };
 
   // Reset theater info
-  this.clearTheaterInfo = function () {
+  self.clearTheaterInfo = function () {
     self.theater().visible(false);
     self.theater().movies.removeAll();
     self.theater().name('');
