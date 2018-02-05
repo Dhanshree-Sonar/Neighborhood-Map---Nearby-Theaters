@@ -287,6 +287,8 @@ let ViewModel = function () {
         success: function (response) {
           if (response.response.venue.canonicalUrl) {
             self.theater().foursquareUrl(response.response.venue.canonicalUrl);
+          } else {
+            self.theater().foursquareUrl('https://foursquare.com');
           }
         },
         error: self.foursquareErrorHandling
