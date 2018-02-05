@@ -223,8 +223,8 @@ let ViewModel = function () {
           }
         }
         if (self.theaterList()[i].googleRating) {
-          content += '<div>' + '<i class="fa fa-google" aria-hidden="true"></i>';
-          content += ' Rating: ' + self.theaterList()[i].googleRating + '</div>';
+          content += `<div> <i class="fa fa-google" aria-hidden="true"></i>
+          Rating: ${self.theaterList()[i].googleRating} </div>`;
           self.theater().googleRating = self.theaterList()[i].googleRating;
         }
 
@@ -334,24 +334,24 @@ let ViewModel = function () {
 
       switch (obj.meta.code) {
         case 400:
-          error = 'Foursquare request failed! Due to: ' + obj.meta.errorType.toUpperCase();
-          error += '. May be you are unauthorized to make the request due to expired/missing credentials.';
+          error = `Foursquare request failed! Due to: ${obj.meta.errorType.toUpperCase()}.
+          May be you are unauthorized to make the request due to expired/missing credentials.`;
           break;
         case 429:
-          error = 'Foursquare request failed! Due to: ' + obj.meta.errorType.toUpperCase();
-          error += '. This app has exceeded the daily call quota set by Foursquare.';
+          error = `Foursquare request failed! Due to: ${obj.meta.errorType.toUpperCase()}.
+          This app has exceeded the daily call quota set by Foursquare.`;
           break;
         case 403:
-          error = 'Foursquare request failed! Due to: ' + obj.meta.errorType.toUpperCase();
-          error += '. May be you are attempting to access unauthorized information.';
+          error = `Foursquare request failed! Due to: ${obj.meta.errorType.toUpperCase()}.
+          May be you are attempting to access unauthorized information.`;
           break;
         case 404:
-          error = 'Foursquare request failed! Due to: ' + obj.meta.errorType.toUpperCase();
-          error += '. Requesting URL not found. It has been removed or does not exist.';
+          error = `Foursquare request failed! Due to: ${obj.meta.errorType.toUpperCase()}.
+          Requesting URL not found. It has been removed or does not exist.`;
           break;
         case 500:
-          error = 'Foursquare request failed! Due to: ' + obj.meta.errorType.toUpperCase();
-          error += '. Foursquare server has timed out. Please try later.';
+          error = `Foursquare request failed! Due to: ${obj.meta.errorType.toUpperCase()}.
+          Foursquare server has timed out. Please try later.`;
           break;
         default:
           error = 'Foursquare request failed! Due to: ' + obj.meta.errorType.toUpperCase();
