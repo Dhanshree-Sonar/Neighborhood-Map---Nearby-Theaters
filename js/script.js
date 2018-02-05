@@ -169,10 +169,10 @@ let ViewModel = function () {
     self.theaterList().forEach(function (theater) {
       if (theater.name().toUpperCase().indexOf(string) > -1) {
         theater.visible(true);
-        theater.marker.setMap(map);
+        theater.marker.setVisible(true);
       } else {
         theater.visible(false);
-        theater.marker.setMap(null);
+        theater.marker.setVisible(false);
       }
     });
   };
