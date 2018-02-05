@@ -316,10 +316,7 @@ let ViewModel = function () {
             self.errorMsg('No Foursquare Movie data available for this theater.');
           }
         },
-        error: function (e) {
-          let obj = JSON.parse(e.responseText);
-          self.errorMsg('Foursquare data is unavailable. Due to: ' + obj.meta.errorType);
-        }
+        error: self.foursquareErrorHandling
       });
     } else {
       self.errorMsg('Foursquare venue ID for this theater is unavailable!');
