@@ -398,9 +398,9 @@ function stopBounceMarker() {
 function createMarker(imageURL, position) {
   let icon = new google.maps.MarkerImage(
     imageURL,
-    new google.maps.Size(71, 71),
+    new google.maps.Size(25, 25),
     new google.maps.Point(0, 0),
-    new google.maps.Point(17, 34),
+    new google.maps.Point(0, 0),
     new google.maps.Size(25, 25));
 
   let marker = new google.maps.Marker({
