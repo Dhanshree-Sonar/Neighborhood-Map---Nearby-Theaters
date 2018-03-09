@@ -1,6 +1,6 @@
 ## Neighborhood Map - Nearby Theaters
 
-This site is helpful resource to obtain list of theaters nearby any location. User need to enter the location to obtain the list of theaters nearby. User can click the marker or list items to retrieve particular theater information. In addition, it has movie list on sidebar along with online booking links.
+This site is helpful resource to obtain list of theaters nearby any location. User needs to enter the location to obtain the list of theaters nearby. User can click the marker or list items to retrieve particular theater information. In addition, it has movie list on sidebar along with online booking links.
 
 ## Prerequisites
 - Internet connection
@@ -25,7 +25,7 @@ This site is helpful resource to obtain list of theaters nearby any location. Us
     - Google InfoWindow on Map: It has data such as Theater Name, Address, Open or Closed Status and Ratings retrieved using Google API.
     - Theater name on sidebar: You can click the name to open theater's website.
     - Movie List on sidebar: This list has movie names and `FANDANGO` links for online booking. The data is retrieved using Foursquare API. Provided link to visit foursquare page for corresponding theater.
-7. If user encounters any error, it will be shown at the top on sidebar.
+7. If user encounters any error, it will be shown at the top on the sidebar.
 
 ## Built with
 
