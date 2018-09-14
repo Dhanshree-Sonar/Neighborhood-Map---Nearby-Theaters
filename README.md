@@ -1,4 +1,4 @@
-## Neighborhood Map - Nearby Theaters
+# Neighborhood Map - Nearby Theaters
 
 This site is a helpful resource to obtain a list of theaters nearby any location. The user needs to enter the location to obtain the list of theaters nearby. The user can click the marker or list items to retrieve particular theater information. In addition, it has movie list on sidebar along with online booking links.
 
