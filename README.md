@@ -27,7 +27,7 @@ This site is a helpful resource to obtain a list of theaters nearby any location
     - Movie List on sidebar: This list has movie names and `FANDANGO` links for online booking. The data is retrieved using Foursquare API. Provided link to visit foursquare page for corresponding theater.
 7. If user encounters any error, it will be shown at the top on the sidebar.
 
-## Built with
+## Technologies
 
 1. HTML
 2. JavaScript
